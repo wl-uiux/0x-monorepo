@@ -7,11 +7,6 @@ import { LandingAnimation } from 'ts/components/heroImage';
 import { HeroAnimation } from 'ts/components/heroAnimation';
 import { WebsitePaths } from 'ts/types';
 
-// const announcement = {
-//     headline: 'Vote on ZEIP-23 MultiAssetProxy',
-//     href: '/vote',
-// };
-
 export const SectionLandingHero = () => (
     <Hero
         title="Powering Decentralized Exchange"

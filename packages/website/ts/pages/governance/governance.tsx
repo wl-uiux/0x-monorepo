@@ -1,5 +1,6 @@
 import { BigNumber } from '@0x/utils';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -55,35 +56,40 @@ const riskLabels: LabelInterface = {
 };
 
 const proposalData = {
-    zeipId: 23,
-    title: 'ZEIP-23: Trade Bundles of Assets',
-    summary: `This ZEIP introduces the MultiAssetProxy, which adds support for trading arbitrary bundles of assets to 0x protocol. Historically, only a single asset could be traded per each side of a trade. With the introduction of the MultiAssetProxy, users will be able to trade multiple ERC721 assets or even mix ERC721 and ERC20 assets within a single order.`,
-    url: 'https://blog.0xproject.com/zeip-23-trade-bundles-of-assets-fe69eb3ed960',
-    votingDeadline: 1551142800,
+    zeipId: 24,
+    title: 'ZEIP-24: ERC1155 The MultiToken Standard',
+    summary: `This ZEIP introduces the ERC115 Asset Proxy, which adds support for trading ERC1155 assets to 0x protocol.`,
+    url: 'https://github.com/ethereum/eips/issues/1155',
+    votingDeadline: moment('2019-05-25', 'YYYY-MM-DD')
+        .utc()
+        .unix(),
+    votingBegin: moment('2019-05-12', 'YYYY-MM-DD')
+        .utc()
+        .unix(),
     benefit: {
         title: 'Benefit',
-        summary: `Supporting trades for bundles of assets has been one of the most commonly requested features since the launch of 0x v2. The idea for this feature originated from discussions with gaming and NFT related projects. However, this upgrade also provides utility to relayers for prediction markets or baskets of tokens. The MultiAssetProxy will enable brand new ways of trading.`,
+        summary: `0x is designed to support numerous assets on the Ethereum blockchain. Adding support for the ERC1155 proxy enables new and more effecient types of trading.`,
         rating: 3,
         links: [
             {
                 text: 'Technical detail',
-                url: 'https://github.com/0xProject/ZEIPs/issues/23',
+                url: 'https://github.com/0xProject/ZEIPs/issues/24',
             },
         ],
     },
     risks: {
         title: 'Risk',
-        summary: `While the MultiAssetProxy’s code is relatively straightforward and has successfully undergone a full third-party audit, a bug within the code could result in the loss of user funds. Deploying the MultiAssetProxy is a hot upgrade that requires modifying the state of existing contracts within 0x protocol. The contracts being modified contain allowances to many users’ tokens. We encourage the community to verify the code, as well as the state changes.`,
-        rating: 2,
+        summary: `The ERC1155 AssetProxy’s code is relatively straightforward and has successfully undergone a full third-party audit. Any bug within the ERC1155 Asset Proxy will only effect ERC1155 assets.`,
+        rating: 1,
         links: [
             {
                 text: 'View Code',
                 url:
-                    'https://github.com/0xProject/0x-monorepo/blob/development/contracts/asset-proxy/contracts/src/MultiAssetProxy.sol#L25',
+                    'https://github.com/0xProject/0x-monorepo/blob/development/contracts/asset-proxy/contracts/src/ERC1155Proxy.sol#L24',
             },
             {
                 text: 'View Audit',
-                url: 'https://github.com/ConsenSys/0x-audit-report-2018-12',
+                url: 'https://github.com/ConsenSys/0x-audit-report-2019-05',
             },
         ],
     },
@@ -113,7 +119,7 @@ export class Governance extends React.Component {
                 <DocumentTitle {...documentConstants.VOTE} />
                 <Section maxWidth="1170px" isFlex={true}>
                     <Column width="55%" maxWidth="560px">
-                        <Countdown deadline={proposalData.votingDeadline} />
+                        <Countdown begin={proposalData.votingBegin} deadline={proposalData.votingDeadline} />
                         <Heading size="medium">{proposalData.title}</Heading>
                         <Paragraph>{proposalData.summary}</Paragraph>
                         <Button
@@ -185,7 +191,7 @@ export class Governance extends React.Component {
                 </Section>
 
                 <Banner
-                    heading="Vote with ZRX on ZEIP-23"
+                    heading={`Vote with ZRX on ZEIP-${proposalData.zeipId}`}
                     subline="Use 0x Instant to quickly purchase ZRX for voting"
                     mainCta={{ text: 'Get ZRX', onClick: this._onLaunchInstantClick.bind(this) }}
                     secondaryCta={{ text: 'Vote', onClick: this._onOpenVoteModal.bind(this) }}
@@ -196,6 +202,7 @@ export class Governance extends React.Component {
                     onDismiss={this._onDismissVoteModal}
                     onWalletConnected={this._onWalletConnected.bind(this)}
                     onVoted={this._onVoteReceived.bind(this)}
+                    zeipId={proposalData.zeipId}
                 />
             </SiteWrap>
         );
@@ -244,7 +251,9 @@ export class Governance extends React.Component {
     };
     private async _fetchVoteStatusAsync(): Promise<void> {
         try {
-            const voteDomain = utils.isProduction() ? `https://${configs.DOMAIN_VOTE}` : 'http://localhost:3000';
+            const voteDomain = utils.isProduction()
+                ? `https://${configs.DOMAIN_VOTE}`
+                : `https://${configs.DOMAIN_VOTE}/staging`;
             const voteEndpoint = `${voteDomain}/v1/tally/${proposalData.zeipId}`;
             const response = await fetch(voteEndpoint, {
                 method: 'get',

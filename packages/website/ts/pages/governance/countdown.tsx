@@ -6,6 +6,7 @@ import { Paragraph } from 'ts/components/text';
 
 interface Props {
     deadline: number;
+    begin: number;
 }
 
 interface TimeStructure {
@@ -21,13 +22,16 @@ interface TimeStructure {
 
 const now = moment();
 
-export const Countdown: React.StatelessComponent<Props> = ({ deadline }) => {
-    const pstOffset = '-0800';
-    const time = moment(deadline, 'X').utcOffset(pstOffset);
-    const isPassed = time.isBefore(now);
-    const voteTextPrefix = isPassed ? `Voting ended: ` : `Vote ends: `;
-    const timeText = !isPassed ? ` • ${getRelativeTime(time)}` : '';
-    const voteText = `${voteTextPrefix} ${time.format('L LT')} PST ${timeText}`;
+export const Countdown: React.StatelessComponent<Props> = ({ deadline, begin }) => {
+    const deadlineTime = moment(deadline, 'X');
+    const beginTime = moment(begin, 'X');
+    const hasBegun = beginTime.isBefore(now);
+    const isPassed = deadlineTime.isBefore(now);
+    let voteTextPrefix = isPassed ? `Voting ended: ` : `Vote ends: `;
+    voteTextPrefix = !hasBegun ? `Voting begins: ` : voteTextPrefix;
+    const displayTime = hasBegun ? deadlineTime : beginTime;
+    const timeText = !isPassed ? ` • ${getRelativeTime(displayTime)}` : '';
+    const voteText = `${voteTextPrefix} ${displayTime.local().format('L LT z')} ${timeText}`;
 
     // TODO convert to container component
     return (

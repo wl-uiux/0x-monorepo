@@ -85,7 +85,7 @@ export const ShowcaseSection = (props: Props) => (
         <ShowcaseSideImg src={props.showcaseImgSrc} />
         <Wrap maxWidth={props.maxWidth} padding={'80px 0'}>
             <ContentWrap>{props.children}</ContentWrap>
-            <ShowcaseImg src={props.showcaseImgSrc}/>
+            <ShowcaseImg src={props.showcaseImgSrc} />
         </Wrap>
     </Section>
 );

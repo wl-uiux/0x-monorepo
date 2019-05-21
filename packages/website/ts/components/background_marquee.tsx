@@ -18,7 +18,9 @@ interface MarqueeWrapProps {
 }
 
 const MarqueeWrap = styled.div<MarqueeWrapProps>`
-    width: 100%;
+    width: 130%;
+    margin-left: -15%;
+    margin-right: -15%;
     height: ${props => props.height || '100%'};
     overflow: hidden;
     position: relative;
@@ -41,7 +43,7 @@ const MarqueeWrap = styled.div<MarqueeWrapProps>`
         right: -2rem;
         bottom: -2rem;
         filter: blur(1rem);
-        z-index: 10;
+        z-index: 1;
         background: #000;
     }
 
@@ -60,14 +62,14 @@ const MarqueeWrap = styled.div<MarqueeWrapProps>`
     @media (min-width: 768px) {
         > div {
             height: ${props => props.imgHeightInPx * props.imgRepeatCt}px;
-            animation: ${props => scrollFactory(props.imgHeightInPx, props.imgRepeatCt)} 60s linear infinite;
+            animation: ${props => scrollFactory(props.imgHeightInPx, props.imgRepeatCt)} 140s linear infinite;
         }
     }
 
     @media (max-width: 768px) {
         > div {
             height: ${props => props.imgHeightInPx * props.imgRepeatCt}px;
-            animation: ${props => scrollMobileFactory(props.imgHeightInPx, props.imgRepeatCt)} 60s linear infinite;
+            animation: ${props => scrollMobileFactory(props.imgHeightInPx, props.imgRepeatCt)} 140s linear infinite;
         }
     }
 `;

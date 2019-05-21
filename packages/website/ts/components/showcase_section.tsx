@@ -16,7 +16,7 @@ const ShowcaseSideImg = styled.img`
     right: -10rem;
     margin: auto 0 auto 0;
     width: 60%;
-    max-width: 900px;
+    max-width: 800px;
     height: 100%;
     @media (max-width: 900px) {
         position: relative;

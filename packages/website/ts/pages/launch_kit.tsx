@@ -26,11 +26,11 @@ const offersData = [
         links: [
             {
                 label: 'Get Started',
-                url: `#`,
+                url: `${constants.URL_LAUNCH_KIT}`,
             },
             {
                 label: 'Live Demo',
-                url: `#`,
+                url: `${constants.URL_LAUNCH_KIT_ERC721_DEMO}`,
             },
         ],
     },
@@ -42,11 +42,11 @@ const offersData = [
         links: [
             {
                 label: 'Get Started',
-                url: `#`,
+                url: `${constants.URL_LAUNCH_KIT}`,
             },
             {
                 label: 'Live Demo',
-                url: `#`,
+                url: `${constants.URL_LAUNCH_KIT_ERC20_DEMO}`,
             },
         ],
     },
@@ -64,7 +64,7 @@ const featuresList = [
         'Docker Image for One-Click Deploy',
         'Standard Relayer API for Sharing Orders',
         'Wrapped ETH Abstraction for Easy Market Buys',
-        'Works with Any Web3-Providing Wallet',
+        'Support for all Web3 Wallets',
     ],
 ];
 
@@ -80,7 +80,7 @@ export class NextLaunchKit extends React.Component {
                     isLargeTitle={true}
                     isFullWidth={true}
                     title="0x Launch Kit"
-                    description="Launch a relayer in under a minute"
+                    description="Launch your own exchange or marketplace in minutes"
                     background={<BackgroundMarquee imgSrcUrl="images/launch_kit/background_marquee.png" />}
                     actions={<HeroActions />}
                     sectionPadding={'120px 0 180px 0'}
@@ -88,28 +88,28 @@ export class NextLaunchKit extends React.Component {
 
                 <Section bgColor="dark" isFlex={true} maxWidth="1170px">
                     <Definition
-                        title="Networked Liquidity Pool"
+                        title="Fully Featured, Out of the Box"
                         titleSize="small"
-                        description="Tap into and share liquidity with other relayers"
-                        icon="networkedLiquidity"
-                        iconSize="medium"
-                        isInline={true}
-                    />
-
-                    <Definition
-                        title="Extensible Code Repo"
-                        titleSize="small"
-                        description="Fork and extend to support modes of exchange"
+                        description="Apply your branding to professionally built UI components to make it your own."
                         icon="code-repo"
                         iconSize="medium"
                         isInline={true}
                     />
 
                     <Definition
-                        title="Exchange Ethereum based Tokens"
+                        title="Secure and 100% Open Source"
                         titleSize="small"
-                        description="Enable trading for any ERC-20 or ERC-721 asset"
-                        icon="eth-based-tokens"
+                        description="Independently audited by ConsenSys Diligence, time-tested, and proven."
+                        icon="secure"
+                        iconSize="medium"
+                        isInline={true}
+                    />
+
+                    <Definition
+                        title="Flexible to Fit Your Needs"
+                        titleSize="small"
+                        description="Support for ERC-20 tokens, ERC-721 NFTs, auctions, custom assets, and more."
+                        icon="flexibleOrders"
                         iconSize="medium"
                         isInline={true}
                     />
@@ -146,7 +146,7 @@ export class NextLaunchKit extends React.Component {
                     subline="Dive into our docs, or contact us if needed"
                     mainCta={{
                         text: 'Get Started',
-                        href: `${constants.URL_LAUNCH_KIT_BACKEND}/#table-of-contents`,
+                        href: `${constants.URL_LAUNCH_KIT}`,
                         shouldOpenInNewTab: true,
                     }}
                     secondaryCta={{ text: 'Get in Touch', onClick: this._onOpenContactModal.bind(this) }}
@@ -167,17 +167,17 @@ export class NextLaunchKit extends React.Component {
 
 const HeroActions = () => (
     <React.Fragment>
-        <Button href={constants.URL_LAUNCH_KIT_BACKEND} isInline={true} target="_blank">
+        <Button href={constants.URL_LAUNCH_KIT} isInline={true} target="_blank">
             Get Started
         </Button>
         <Button
-            href={constants.URL_LAUNCH_KIT_BLOG_POST}
+            href={constants.URL_LAUNCH_KIT_ERC20_DEMO}
             transparentBgColor={'#000000'}
             isTransparent={true}
             isInline={true}
             target="_blank"
         >
-            Learn More!
+            Live Demo
         </Button>
     </React.Fragment>
 );

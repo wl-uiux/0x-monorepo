@@ -51,7 +51,7 @@ export class CoordinatorContract extends BaseContract {
             // tslint:enable boolean-naming
             return result;
         }
-    }
+    };
         public getTransactionHash = {
             async callAsync(
                 transaction: {salt: BigNumber;signerAddress: string;data: string},
@@ -341,7 +341,7 @@ export class CoordinatorContract extends BaseContract {
             // tslint:enable boolean-naming
             return result;
         }
-    }
+    };
         public EIP712_COORDINATOR_DOMAIN_HASH = {
             async callAsync(
                 callData: Partial<CallData> = {},

@@ -443,7 +443,7 @@ export class ERC20ProxyContract extends BaseContract {
             // tslint:enable boolean-naming
             return result;
         }
-    }
+    };
         public authorized = {
             async callAsync(
                 index_0: string,

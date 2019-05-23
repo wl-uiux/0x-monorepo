@@ -507,7 +507,7 @@ export class IAssetProxyContract extends BaseContract {
             // tslint:enable boolean-naming
             return result;
         }
-    }
+    };
         public getAuthorizedAddresses = {
             async callAsync(
                 callData: Partial<CallData> = {},

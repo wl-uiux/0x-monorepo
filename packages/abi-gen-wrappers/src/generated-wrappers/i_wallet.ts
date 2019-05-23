@@ -26,36 +26,36 @@ import * as ethers from 'ethers';
 // tslint:disable:no-parameter-reassignment
 // tslint:disable-next-line:class-name
 export class IWalletContract extends BaseContract {
-    public isValidSignature = {
-        async callAsync(
-            hash: string,
-            signature: string,
-            callData: Partial<CallData> = {},
-            defaultBlock?: BlockParam,
-        ): Promise<boolean
-        > {
-            const self = this as any as IWalletContract;
-            const encodedData = self._strictEncodeArguments('isValidSignature(bytes32,bytes)', [hash,
-        signature
-        ]);
-            const callDataWithDefaults = await BaseContract._applyDefaultsToTxDataAsync(
-                {
-                    to: self.address,
-                    ...callData,
-                    data: encodedData,
-                },
-                self._web3Wrapper.getContractDefaults(),
-            );
-            const rawCallResult = await self._web3Wrapper.callAsync(callDataWithDefaults, defaultBlock);
-            BaseContract._throwIfRevertWithReasonCallResult(rawCallResult);
-            const abiEncoder = self._lookupAbiEncoder('isValidSignature(bytes32,bytes)');
-            // tslint:disable boolean-naming
-            const result = abiEncoder.strictDecodeReturnValue<boolean
-        >(rawCallResult);
-            // tslint:enable boolean-naming
-            return result;
-        },
-    };
+        public isValidSignature = {
+            async callAsync(
+                hash: string,
+                signature: string,
+                callData: Partial<CallData> = {},
+                defaultBlock?: BlockParam,
+            ): Promise<boolean
+            > {
+                const self = this as any as IWalletContract;
+                const encodedData = self._strictEncodeArguments('isValidSignature(bytes32,bytes)', [hash,
+            signature
+            ]);
+                const callDataWithDefaults = await BaseContract._applyDefaultsToTxDataAsync(
+                    {
+                        to: self.address,
+                        ...callData,
+                        data: encodedData,
+                    },
+                    self._web3Wrapper.getContractDefaults(),
+                );
+                const rawCallResult = await self._web3Wrapper.callAsync(callDataWithDefaults, defaultBlock);
+                BaseContract._throwIfRevertWithReasonCallResult(rawCallResult);
+                const abiEncoder = self._lookupAbiEncoder('isValidSignature(bytes32,bytes)');
+                // tslint:disable boolean-naming
+                const result = abiEncoder.strictDecodeReturnValue<boolean
+            >(rawCallResult);
+                // tslint:enable boolean-naming
+                return result;
+            },
+        };
     public static async deployFrom0xArtifactAsync(
         artifact: ContractArtifact | SimpleContractArtifact,
         supportedProvider: SupportedProvider,

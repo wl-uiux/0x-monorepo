@@ -45,9 +45,9 @@
         "@0x/utils": "^4.3.3",
         "@0x/web3-wrapper": "^6.0.6",
         "ethereum-types": "^2.1.2",
+        "ethereumjs-vm": "^3.0.0",
         "ethers": "~4.0.4",
-        "lodash": "^4.17.11",
-        "pure-evm": "^0.1.2"
+        "lodash": "^4.17.11"
     },
     "publishConfig": {
         "access": "public"

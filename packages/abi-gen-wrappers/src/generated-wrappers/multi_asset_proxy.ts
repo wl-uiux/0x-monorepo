@@ -493,16 +493,14 @@ export class MultiAssetProxyContract extends BaseContract {
     > {
             const self = this as any as MultiAssetProxyContract;
             const encodedData = self._strictEncodeArguments('getProxyId()', []);
-            const encodedDataBytes = Uint8Array.from(Buffer.from(encodedData.substr(2), 'hex'));
-            const bytecode = await self._lookupDeployedBytecodeAsync();
-            const bytecodeBytes = Uint8Array.from(Buffer.from(bytecode.substr(2), 'hex'));
-            const rawCallResultBytes = await BaseContract._evmExecAsync(bytecodeBytes, encodedDataBytes);
-            const rawCallResultHex = `0x${Buffer.from(rawCallResultBytes).toString('hex')}`;
-            BaseContract._throwIfRevertWithReasonCallResult(rawCallResultHex);
+            const encodedDataBuf = Buffer.from(encodedData.substr(2), 'hex');
+            const rawCallResultBuf = await self._evmExecAsync(encodedDataBuf);
+            const rawCallResult = `0x${rawCallResultBuf.toString('hex')}`;
+            BaseContract._throwIfRevertWithReasonCallResult(rawCallResult);
             const abiEncoder = self._lookupAbiEncoder('getProxyId()');
             // tslint:disable boolean-naming
             const result = abiEncoder.strictDecodeReturnValue<string
-    >(rawCallResultHex);
+    >(rawCallResult);
             // tslint:enable boolean-naming
             return result;
         }

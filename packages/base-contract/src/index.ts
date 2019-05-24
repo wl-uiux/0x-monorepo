@@ -11,6 +11,7 @@ import {
     TxData,
     TxDataPayable,
 } from 'ethereum-types';
+import * as VM from 'ethereumjs-vm';
 import * as ethers from 'ethers';
 import * as _ from 'lodash';
 
@@ -143,16 +144,25 @@ export class BaseContract {
         }
         return rawEncoded;
     }
-    protected static async _evmExecAsync(bytecode: Uint8Array, data: Uint8Array): Promise<Uint8Array> {
-        const isBrowser = new Function('try {return this===window;}catch(e){ return false;}');
-        if (isBrowser()) {
-            return import('pure-evm').then(pure_evm_async => {
-                return pure_evm_async.exec(bytecode, data);
-            });
-        } else {
-            const pure_evm = require('pure-evm');
-            return pure_evm.exec(bytecode, data);
-        }
+    protected async _evmExecAsync(input: Buffer): Promise<Buffer> {
+        const contractCode = await this._lookupDeployedBytecodeAsync();
+        const vm = new VM();
+        return new Promise<Buffer>((resolve: any, reject: any) => {
+            vm.runCode(
+                {
+                    code: Buffer.from(contractCode.substr(2), 'hex'),
+                    data: input,
+                    gasLimit: Buffer.from('ffffffff', 'hex'),
+                },
+                (err: any, res: any) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(res.return);
+                    }
+                },
+            );
+        });
     }
     protected _lookupAbiEncoder(functionSignature: string): AbiEncoder.Method {
         const abiEncoder = this._abiEncoderByFunctionSignature[functionSignature];

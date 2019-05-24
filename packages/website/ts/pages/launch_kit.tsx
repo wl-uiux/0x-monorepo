@@ -10,7 +10,7 @@ import { Section } from 'ts/components/newLayout';
 import { ShowcaseSection } from 'ts/components/showcase_section';
 import { SimpleDefinition } from 'ts/components/simple_definition';
 import { SiteWrap } from 'ts/components/siteWrap';
-import { Heading } from 'ts/components/text';
+import { Heading, Paragraph } from 'ts/components/text';
 import { constants } from 'ts/utils/constants';
 import { documentConstants } from 'ts/utils/document_meta_constants';
 
@@ -152,6 +152,21 @@ export class NextLaunchKit extends React.Component {
                     secondaryCta={{ text: 'Get in Touch', onClick: this._onOpenContactModal.bind(this) }}
                 />
                 <ModalContact isOpen={this.state.isContactModalOpen} onDismiss={this._onDismissContactModal} />
+
+                <Section maxWidth="1170px" isPadded={true} padding="60px 0">
+                    <Paragraph size="small" isMuted={0.5}>
+                        Disclaimer: The laws and regulations applicable to the use and exchange of digital assets and
+                        blockchain-native tokens, including through any software developed using the licensed work
+                        created by ZeroEx Intl. (the “Work”), vary by jurisdiction. As set forth in the Apache License,
+                        Version 2.0 applicable to the Work, developers are “solely responsible for determining the
+                        appropriateness of using or redistributing the Work,” which includes responsibility for ensuring
+                        compliance with any such applicable laws and regulations.
+                    </Paragraph>
+                    <Paragraph size="small" isMuted={0.5}>
+                        See the Apache License, Version 2.0 for the specific language governing all applicable
+                        permissions and limitations.
+                    </Paragraph>
+                </Section>
             </SiteWrap>
         );
     }

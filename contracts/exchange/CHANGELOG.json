@@ -45,6 +45,10 @@
             {
                 "note": "Avoid redundant transfer in `fillOrder()` and `matchOrders()` when maker/taker is the same as feeRecipient and assets are the same",
                 "pr": 1819
+            },
+            {
+                "note": "Return a FillResults array for batch fill variants",
+                "pr": 1834
             }
         ]
     },
